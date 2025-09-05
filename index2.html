@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Book Typing — Ridwan</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --page-width: 480px;
+      --page-height: 640px;
+      --paper: #fffdf6;
+      --paper-edge: #eee3c9;
+      --text-color: #222;
+      --accent: #7c4dff;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg, #e9eef7 0%, #f7f9fc 100%);
+      color: var(--text-color);
+      padding: 2rem 1rem;
+      min-height: 100vh;
+    }
+
+    .book-wrap {
+      max-width: calc(var(--page-width) * 2 + 48px);
+      margin: 0 auto;
+    }
+
+    /* Book container (centered) */
+    .book {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      justify-items: center;
+      align-items: start;
+      perspective: 1200px;
+    }
+
+    /* Each page */
+    .page {
+      width: var(--page-width);
+      height: var(--page-height);
+      background: linear-gradient(180deg, var(--paper) 0%, #fff 100%);
+      box-shadow: 0 12px 30px rgba(17,24,39,0.12);
+      border-radius: 8px;
+      border: 1px solid var(--paper-edge);
+      padding: 28px 30px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* inner page content area */
+    .page .sheet {
+      flex: 1 1 auto;
+      overflow: auto;
+      font-family: 'EB Garamond', serif;
+      line-height: 1.55;
+      font-size: 18px;
+      color: #111;
+      outline: none;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    /* fake margin lines */
+    .page .sheet::before{
+      content: "";
+      position: absolute;
+      left: 40px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.03) 0%, rgba(0,0,0,0.03) 100%);
+      pointer-events: none;
+    }
+
+    .page .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      align-items: center;
+      margin-top: 12px;
+      font-size: 13px;
+      color: #555;
+    }
+
+    .controls {
+      margin: 18px 0 12px;
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    .toolbar {
+      display:flex;
+      gap:8px;
+      justify-content:center;
+      margin-bottom:12px;
+    }
+
+    .page-number {
+      font-size: 13px;
+      color: #6b7280;
+    }
+
+    /* small screens: stack pages */
+    @media (max-width: 1100px) {
+      .book { grid-template-columns: 1fr; gap: 18px; }
+      :root{ --page-width: 360px; --page-height: 520px; }
+    }
+
+    /* subtle focus highlight */
+    .sheet:focus {
+      box-shadow: 0 0 0 3px rgba(124,77,255,0.06);
+      border-radius: 4px;
+    }
+
+    /* buttons */
+    .btn-accent {
+      background: linear-gradient(90deg,var(--accent), #5c3cff);
+      color: white;
+      border: none;
+    }
+
+    .muted {
+      color: #6b7280;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="book-wrap">
+
+    <header class="d-flex align-items-center justify-content-between mb-3">
+      <div>
+        <h3 class="mb-0">Book Typing</h3>
+        <small class="muted">Type like you're writing in a real book</small>
+      </div>
+      <div class="text-end">
+        <small class="muted">Auto-save • Ctrl/⌘+S download</small>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <button id="prevBtn" class="btn btn-outline-secondary">← Prev</button>
+      <button id="nextBtn" class="btn btn-outline-secondary">Next →</button>
+      <button id="addPageBtn" class="btn btn-outline-secondary">+ Add Page</button>
+      <button id="downloadBtn" class="btn btn-accent">Download .txt</button>
+      <button id="clearBtn" class="btn btn-outline-danger">Clear Book</button>
+    </div>
+
+    <div class="book" id="book">
+      <!-- left page -->
+      <div class="page" id="leftPage">
+        <div class="sheet" contenteditable="true" data-page-index="0" spellcheck="true" id="sheet-0" placeholder="Start typing..."></div>
+        <div class="footer">
+          <span class="page-number" id="pnum-left">Page 1</span>
+          <span class="muted">Ridwan</span>
+        </div>
+      </div>
+
+      <!-- right page -->
+      <div class="page" id="rightPage">
+        <div class="sheet" contenteditable="true" data-page-index="1" spellcheck="true" id="sheet-1" placeholder="Start typing..."></div>
+        <div class="footer">
+          <span class="page-number" id="pnum-right">Page 2</span>
+          <span class="muted" id="muted-right">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls mt-3 text-center">
+      <small class="muted">Tip: Use <kbd>Ctrl</kbd>/<kbd>⌘</kbd> + <kbd>S</kbd> to download. Your text is saved automatically in your browser.</small>
+    </div>
+  </div>
+
+  <script>
+    // Basic page system: even pages on right, odd pages on left (1-based numbering)
+    const STORAGE_KEY = 'bookTyping.pages.v1';
+    let pages = []; // array of strings (page content)
+    let currentPairIndex = 0; // which pair of pages to show (0 => pages 0 & 1)
+    const leftSheet = document.getElementById('sheet-0');
+    const rightSheet = document.getElementById('sheet-1');
+    const pnumLeft = document.getElementById('pnum-left');
+    const pnumRight = document.getElementById('pnum-right');
+
+    // load saved
+    function loadPages() {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) {
+        try {
+          pages = JSON.parse(raw);
+        } catch (e) {
+          pages = [];
+        }
+      }
+      if (!Array.isArray(pages) || pages.length === 0) {
+        pages = ['', '']; // start with two pages
+      }
+    }
+
+    function savePages() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(pages));
+    }
+
+    function renderPair() {
+      const leftIndex = currentPairIndex * 2;
+      const rightIndex = leftIndex + 1;
+
+      // ensure indexes exist
+      while (pages.length <= rightIndex) pages.push('');
+
+      leftSheet.innerText = pages[leftIndex] || '';
+      leftSheet.setAttribute('data-page-index', leftIndex);
+      rightSheet.innerText = pages[rightIndex] || '';
+      rightSheet.setAttribute('data-page-index', rightIndex);
+
+      pnumLeft.textContent = `Page ${leftIndex + 1}`;
+      pnumRight.textContent = `Page ${rightIndex + 1}`;
+
+      // focus on left or right when first loaded
+      // keep caret at end if content exists
+    }
+
+    // store text when user types (debounced)
+    let saveTimer = null;
+    function scheduleSave() {
+      if (saveTimer) clearTimeout(saveTimer);
+      saveTimer = setTimeout(() => {
+        const leftIndex = parseInt(leftSheet.getAttribute('data-page-index'));
+        const rightIndex = parseInt(rightSheet.getAttribute('data-page-index'));
+        pages[leftIndex] = leftSheet.innerText;
+        pages[rightIndex] = rightSheet.innerText;
+        savePages();
+      }, 500);
+    }
+
+    // next/prev pair
+    function nextPair() {
+      // compute max pair index
+      const maxPair = Math.floor(Math.max(0, pages.length - 1) / 2);
+      if (currentPairIndex < maxPair) currentPairIndex++;
+      else {
+        // auto-add a new pair
+        pages.push('', '');
+        currentPairIndex++;
+      }
+      renderPair();
+      focusFirstEmpty();
+    }
+
+    function prevPair() {
+      if (currentPairIndex > 0) currentPairIndex--;
+      renderPair();
+      focusFirstEmpty();
+    }
+
+    function addPage() {
+      pages.push('');
+      // if adding a page will create a new right page in current pair, just re-render
+      savePages();
+      renderPair();
+    }
+
+    function clearBook() {
+      if (!confirm('Clear all pages? This cannot be undone.')) return;
+      pages = ['', ''];
+      currentPairIndex = 0;
+      savePages();
+      renderPair();
+    }
+
+    function focusFirstEmpty() {
+      // prefer left then right
+      if (!leftSheet.innerText.trim()) {
+        placeCaretAtEnd(leftSheet);
+        leftSheet.focus();
+      } else if (!rightSheet.innerText.trim()) {
+        placeCaretAtEnd(rightSheet);
+        rightSheet.focus();
+      } else {
+        placeCaretAtEnd(rightSheet);
+        rightSheet.focus();
+      }
+    }
+
+    // helper to place caret at end of contenteditable
+    function placeCaretAtEnd(el) {
+      el.focus();
+      document.getSelection().selectAllChildren(el);
+      document.getSelection().collapseToEnd();
+    }
+
+    // download book as .txt
+    function downloadBook() {
+      // join pages with page separators
+      const fullText = pages.map((p,i)=>`--- Page ${i+1} ---\n${p}`).join('\n\n');
+      const blob = new Blob([fullText], {type: 'text/plain;charset=utf-8'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'my-book.txt';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // init
+    loadPages();
+    renderPair();
+
+    // event listeners: inputs
+    leftSheet.addEventListener('input', scheduleSave);
+    rightSheet.addEventListener('input', scheduleSave);
+
+    // buttons
+    document.getElementById('nextBtn').addEventListener('click', nextPair);
+    document.getElementById('prevBtn').addEventListener('click', prevPair);
+    document.getElementById('addPageBtn').addEventListener('click', ()=>{
+      pages.push(''); savePages();
+      // move to last page pair
+      currentPairIndex = Math.floor((pages.length-1)/2);
+      renderPair(); focusFirstEmpty();
+    });
+    document.getElementById('downloadBtn').addEventListener('click', downloadBook);
+    document.getElementById('clearBtn').addEventListener('click', clearBook);
+
+    // keyboard shortcuts: Ctrl/Cmd + S to download
+    document.addEventListener('keydown', function(e){
+      const isMac = navigator.platform.toUpperCase().includes('MAC');
+      if ((isMac ? e.metaKey : e.ctrlKey) && e.key.toLowerCase() === 's') {
+        e.preventDefault();
+        downloadBook();
+      }
+      // left/right arrow for page flip when focused not in an input (or even when in editor)
+      if (e.key === 'ArrowRight' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault(); nextPair();
+      } else if (e.key === 'ArrowLeft' && (e.ctrlKey || e.metaKey)) {
+        e.preventDefault(); prevPair();
+      }
+    });
+
+    // autosave before unload
+    window.addEventListener('beforeunload', function(){
+      const leftIndex = parseInt(leftSheet.getAttribute('data-page-index'));
+      const rightIndex = parseInt(rightSheet.getAttribute('data-page-index'));
+      pages[leftIndex] = leftSheet.innerText;
+      pages[rightIndex] = rightSheet.innerText;
+      savePages();
+    });
+
+    // expose a small API to console for debugging
+    window.bookTyping = {
+      pages,
+      savePages,
+      loadPages,
+      renderPair,
+      downloadBook
+    };
+
+    // ensure caret visible when clicked
+    leftSheet.addEventListener('focus', ()=>placeCaretAtEnd(leftSheet));
+    rightSheet.addEventListener('focus', ()=>placeCaretAtEnd(rightSheet));
+
+    // Put caret in the first empty sheet on load
+    focusFirstEmpty();
+  </script>
+</body>
+</html>

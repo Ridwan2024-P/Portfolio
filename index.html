@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ridwan Bin Ahsan Portfolio Book</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+  margin: 0;
+  background: #eee8d9 url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+  font-family: 'Georgia', serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.book {
+  width: 900px;
+  height: 600px;
+  perspective: 2000px;
+  position: relative;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+.page {
+  width: 450px;
+  height: 100%;
+  background: #fffef9;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  position: absolute;
+  top: 0;
+  overflow: hidden;
+  transition: transform 1s cubic-bezier(.77,.2,.05,1.0), box-shadow 0.5s ease;
+}
+.page-content { padding: 2rem; overflow-y:auto; height:100%; }
+
+/* Right pages */
+.page.right {
+  right: 0;
+  transform-origin: left center;
+  border-radius: 0 8px 8px 0;
+}
+
+/* Left pages */
+.page.left {
+  left: 0;
+  transform-origin: right center;
+  border-radius: 8px 0 0 8px;
+}
+
+.spine {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, #999, #333, #999);
+  z-index: 20;
+}
+
+.nav-btn {
+  position: absolute;
+  bottom: 20px;
+  background: #7c4dff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+  transition: background 0.3s ease;
+}
+.nav-btn:hover { background: #5b2ee6; }
+#next { right: 20px; }
+#prev { left: 20px; }
+</style>
+</head>
+<body>
+
+<div class="book">
+  <div class="spine"></div>
+
+  <!-- Cover Page (Right) -->
+  <div class="page right" id="page1" style="z-index:10;">
+    <div class="page-content text-center">
+      <h1>📖 Ridwan Bin Ahsan</h1>
+      <p>Full-Stack Web Developer</p>
+      <p>📍 527/6, Bashundhara Residential Area, Dhaka – 1229</p>
+      <p>📞 01875667000 | ✉️ Ahsanrid@gmail.com</p>
+      <button id="next1" class="nav-btn">Next →</button>
+    </div>
+  </div>
+
+  <!-- Left Page Example -->
+  <div class="page left" id="page2" style="z-index:9;">
+    <div class="page-content">
+      <h2>Objective</h2>
+      <p>A highly organized, patient, and results-driven professional seeking growth as a web developer. Passionate about clean, efficient code and user-focused design.</p>
+      <button id="prev2" class="nav-btn">← Prev</button>
+      <button id="next2" class="nav-btn">Next →</button>
+    </div>
+  </div>
+
+  <!-- Right Page -->
+  <div class="page right" id="page3" style="z-index:8;">
+    <div class="page-content">
+      <h2>Skills</h2>
+      <ul>
+        <li>Web Dev: HTML, CSS, JS, Bootstrap 5, PHP, Git</li>
+        <li>Programming: C++, Java, C#, .NET</li>
+        <li>OOP & Design Patterns</li>
+        <li>Software/Tools: MS Word, Excel, PowerPoint, IDEs</li>
+        <li>Networking: Cisco</li>
+        <li>Graphics & Problem Solving (ICPC)</li>
+        <li>Soft Skills: Communication, Leadership</li>
+        <li>Languages: Bangla & English</li>
+      </ul>
+      <button id="prev3" class="nav-btn">← Prev</button>
+      <button id="next3" class="nav-btn">Next →</button>
+    </div>
+  </div>
+
+  <!-- Left Page -->
+  <div class="page left" id="page4" style="z-index:7;">
+    <div class="page-content">
+      <h2>Education</h2>
+      <ul>
+        <li>2022–2026: BSc in CSE, AIUB</li>
+        <li>2020: HSC (Science), Police Lines School & College, Rangpur</li>
+        <li>2018: SSC (Science), Police Lines School & College, Rangpur</li>
+      </ul>
+      <button id="prev4" class="nav-btn">← Prev</button>
+      <button id="next4" class="nav-btn">Next →</button>
+    </div>
+  </div>
+
+  <!-- Right Page -->
+  <div class="page right" id="page5" style="z-index:6;">
+    <div class="page-content">
+      <h2>Experience</h2>
+      <p><strong>Junior Web Developer</strong> – Bangladesh Software Solution (May 2025 – Present)</p>
+      <ul>
+        <li>Full-stack web development</li>
+        <li>Responsive user-friendly websites</li>
+        <li>Code reviews & bug fixing</li>
+      </ul>
+      <p><strong>Web Development Intern</strong> – BSS (Oct–Dec 2024)</p>
+      <ul>
+        <li>Bootstrap 5, PHP, Git</li>
+      </ul>
+      <button id="prev5" class="nav-btn">← Prev</button>
+      <button id="next5" class="nav-btn">Next →</button>
+    </div>
+  </div>
+
+  <!-- Add more left/right pages similarly -->
+
+</div>
+
+<script>
+const pages = document.querySelectorAll(".page");
+let current = 0;
+
+function flipTo(index){
+  pages.forEach((page,i)=>{
+    if(i<=index){
+      page.style.transform = page.classList.contains('right') ? "rotateY(-180deg)" : "rotateY(180deg)";
+      page.style.zIndex = pages.length - i;
+    } else {
+      page.style.transform = "rotateY(0deg)";
+      page.style.zIndex = pages.length - index - 1 - (i - index);
+    }
+  });
+}
+
+// Next & Prev
+for(let i=1;i<=5;i++){
+  let nextBtn=document.getElementById("next"+i);
+  let prevBtn=document.getElementById("prev"+i);
+  if(nextBtn) nextBtn.onclick=()=>{ current=i; flipTo(current);}
+  if(prevBtn) prevBtn.onclick=()=>{ current=i-2; flipTo(current);}
+}
+</script>
+
+</body>
+</html>

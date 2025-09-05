@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ridwan | Cyberpunk Dev Portfolio</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <!-- Code font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Prism (optional pretty code look) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css"/>
+  <style>
+    :root{
+      --bg:#05060a;           /* deep black-blue */
+      --panel:#0b0f17;        /* panels */
+      --neon:#00ffd1;         /* teal neon */
+      --neon2:#6a5cff;        /* violet neon */
+      --accent:#00ff6a;       /* green */
+      --text:#d8e1ff;         /* soft ice */
+      --muted:#91a0c3;        
+      --danger:#ff4d6d;
+      --glow:0 0 12px rgba(0,255,209,.55), 0 0 32px rgba(0,255,209,.25);
+      --glow2:0 0 14px rgba(106,92,255,.6), 0 0 30px rgba(106,92,255,.25);
+    }
+    html,body{height:100%; background: radial-gradient(1200px 800px at 80% -10%, rgba(106,92,255,.15), transparent), radial-gradient(900px 700px at -10% 120%, rgba(0,255,209,.12), transparent), var(--bg); color:var(--text); font-family:'Fira Code', monospace;}
+    a{color:var(--neon)}
+    .navbar{background:rgba(5,6,10,.75)!important; backdrop-filter:saturate(130%) blur(10px); border-bottom:1px solid rgba(255,255,255,.06)}
+    .btn-neon{border:1px solid var(--neon); color:var(--neon); box-shadow: var(--glow); text-shadow:0 0 6px rgba(0,255,209,.75);}
+    .btn-neon:hover{background:var(--neon); color:#051014}
+    .btn-ghost{border:1px dashed rgba(255,255,255,.25); color:var(--text)}
+
+    /* HERO */
+    #hero{position:relative; min-height:100vh; display:grid; place-items:center; overflow:hidden}
+    #matrix{position:absolute; inset:0; z-index:0;}
+    .hero-inner{position:relative; z-index:1; text-align:center}
+    .console{max-width:900px; margin-inline:auto; text-align:left; background:linear-gradient(180deg, rgba(11,15,23,.8), rgba(11,15,23,.55)); border:1px solid rgba(255,255,255,.08); border-radius:14px; box-shadow:var(--glow2);}
+    .console .titlebar{display:flex; gap:8px; align-items:center; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.06)}
+    .bubble{width:10px; height:10px; border-radius:50%}
+    .bubble.red{background:#ff5f57}.bubble.yellow{background:#ffbd2e}.bubble.green{background:#28c840}
+    .console pre{padding:18px; margin:0; color:#b7ffcc; white-space:pre-wrap}
+    .caret{display:inline-block; width:9px; height:1.2em; background:#b7ffcc; box-shadow:0 0 8px #00ff6a; animation:blink 1s steps(1) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* SECTION WRAPPERS */
+    section{scroll-margin-top:80px}
+    .section-title{text-transform:uppercase; letter-spacing:.18em; color:var(--muted)}
+
+    /* CODE-EDITOR CARDS */
+    .code-card{background:linear-gradient(180deg, rgba(11,15,23,.9), rgba(11,15,23,.6)); border:1px solid rgba(255,255,255,.07); border-radius:16px; overflow:hidden}
+    .code-card .bar{display:flex; align-items:center; gap:10px; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.06); background:linear-gradient(90deg, rgba(106,92,255,.15), rgba(0,255,209,.08));}
+    .tab{padding:.25rem .75rem; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)}
+    .tab.active{background:rgba(0,255,209,.12); border-color:rgba(0,255,209,.5); color:var(--neon)}
+
+    /* PROJECT GRID */
+    .project{position:relative; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.06); background:#0b0f17}
+    .project img{height:210px; width:100%; object-fit:cover; filter:saturate(1.05) contrast(1.05)}
+    .project .overlay{position:absolute; inset:0; display:grid; place-items:center; background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.65)); opacity:0; transition:.3s}
+    .project:hover .overlay{opacity:1}
+    .badge-neon{background:rgba(0,255,209,.15); border:1px solid rgba(0,255,209,.45); color:var(--neon)}
+
+    /* SKILLS */
+    .skill{margin-bottom:18px}
+    .meter{height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden;}
+    .fill{height:100%; width:0; background:linear-gradient(90deg, var(--neon), var(--neon2)); box-shadow:var(--glow); transition:width 1.5s ease}
+
+    /* CONTACT */
+    .form-control, .form-select{background:#0b0f17; border:1px solid rgba(255,255,255,.08); color:var(--text)}
+    .form-control:focus{border-color:var(--neon); box-shadow:0 0 0 .2rem rgba(0,255,209,.15)}
+
+    /* Floating socials */
+    .socials{position:fixed; left:12px; top:40%; display:flex; flex-direction:column; gap:10px; z-index:10}
+    .socials a{display:grid; place-items:center; width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.14); color:var(--text); background:rgba(11,15,23,.7)}
+    .socials a:hover{border-color:var(--neon); color:var(--neon); box-shadow:var(--glow)}
+
+    /* Back to top */
+    #toTop{position:fixed; right:16px; bottom:16px; display:none; z-index:20}
+
+    /* Nice small glow divider */
+    .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(0,255,209,.6), transparent); box-shadow:var(--glow)}
+  </style>
+</head>
+<body>
+  <!-- NAV -->
+  <nav class="navbar navbar-expand-lg fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#hero"><span class="text-info">&lt;/&gt;</span>Ahsan,Md Ridwan Bin.dev</a>
+      <button class="navbar-toggler text-white" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+          <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item ms-lg-3"><a class="btn btn-sm btn-neon" href="#contact"><i class="bi bi-lightning-charge me-1"></i>Hire Me</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FLOATING SOCIALS -->
+  <div class="socials">
+    <a href="https://github.com/" target="_blank" rel="noopener"><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/" target="_blank" rel="noopener"><i class="bi bi-linkedin"></i></a>
+    <a href="mailto:hello@example.com"><i class="bi bi-envelope"></i></a>
+  </div>
+
+  <!-- HERO / TERMINAL -->
+  <section id="hero" class="container-fluid">
+    <canvas id="matrix"></canvas>
+    <div class="hero-inner container py-5">
+      <div class="console">
+        <div class="titlebar">
+          <span class="bubble red"></span>
+          <span class="bubble yellow"></span>
+          <span class="bubble green"></span>
+          <span class="ms-2 text-muted">VSCode — ridwan/portfolio</span>
+        </div>
+        <pre id="terminal"></pre>
+      </div>
+      <div class="mt-4 d-flex gap-2 justify-content-center">
+        <a href="#projects" class="btn btn-neon btn-lg"><i class="bi bi-eye me-1"></i> View Projects</a>
+        <a href="#contact" class="btn btn-ghost btn-lg"><i class="bi bi-send me-1"></i> Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider my-5"></div>
+
+  <!-- ABOUT (code-editor style) -->
+  <section id="about" class="container py-5">
+    <p class="section-title mb-2">/about</p>
+    <div class="code-card">
+      <div class="bar">
+        <span class="tab active">about.ts</span>
+        <span class="tab">profile.json</span>
+      </div>
+      <div class="p-3">
+<pre class="language-ts"><code class="language-ts">export const ridwan = {
+  name: "Ahsan, Md Ridwan Bin",
+  role: "Software Engineer",
+  location: "Dhaka, Bangladesh",
+  focus: ["Web Apps", ".NET", "C++", "PHP", "Java", "Flutter", "Algorithms", "System Design"],
+  currentlyBuilding: "Smart Shop Management System",
+  contact: "Ahsanrid@gmail.com"
+};
+</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="container py-5">
+    <p class="section-title mb-2">/projects</p>
+    <div class="row g-4">
+      <!-- Project 1 -->
+      <div class="col-md-4">
+        <article class="project">
+          <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=1200&auto=format&fit=crop" alt="E‑Voting"/>
+          <div class="overlay text-center p-3">
+            <div>
+              <h5 class="mb-2">Opinion Platform (PHP + MySQL)</h5>
+              <span class="badge badge-neon me-1">Bootstrap</span>
+              <span class="badge badge-neon me-1">PHP</span>
+              <span class="badge badge-neon">MySQL</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <!-- Project 2 -->
+      <div class="col-md-4">
+        <article class="project">
+          <img src="https://images.unsplash.com/photo-1518779578993-ec3579fee39f?q=80&w=1200&auto=format&fit=crop" alt="EcoGuard"/>
+          <div class="overlay text-center p-3">
+            <div>
+              <h5 class="mb-2">EcoGuard (AI Smart Home)</h5>
+              <span class="badge badge-neon me-1">Flutter</span>
+              <span class="badge badge-neon me-1">Firebase</span>
+              <span class="badge badge-neon">ML</span>
+            </div>
+          </div>
+        </article>
+      </div>
+      <!-- Project 3 -->
+      <div class="col-md-4">
+        <article class="project">
+          <img src="https://images.unsplash.com/photo-1515168833906-d2a3b82b302a?q=80&w=1200&auto=format&fit=crop" alt="NopCommerce"/>
+          <div class="overlay text-center p-3">
+            <div>
+              <h5 class="mb-2">NopCommerce Customization</h5>
+              <span class="badge badge-neon me-1">.NET</span>
+              <span class="badge badge-neon me-1">C#</span>
+              <span class="badge badge-neon">SQL Server</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- Sample code window under projects -->
+    <div class="code-card mt-4">
+      <div class="bar"><span class="tab active">snippet.tsx</span><span class="tab">api.ts</span></div>
+      <pre class="p-3 language-tsx"><code class="language-tsx">export default function HeroButton(){
+  return (
+    &lt;button className="btn btn-neon" onClick={() =&gt; window.location.hash = '#projects'}&gt;
+      {'//'} Explore Work
+    &lt;/button&gt;
+  )
+}
+</code></pre>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="container py-5">
+    <p class="section-title mb-2">/skills</p>
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="skill">
+          <div class="d-flex justify-content-between"><span>JavaScript / TypeScript</span><span>90%</span></div>
+          <div class="meter"><div class="fill" data-width="90%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="d-flex justify-content-between"><span>React / Next.js</span><span>88%</span></div>
+          <div class="meter"><div class="fill" data-width="88%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="d-flex justify-content-between"><span>PHP / Laravel</span><span>85%</span></div>
+          <div class="meter"><div class="fill" data-width="85%"></div></div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="skill">
+          <div class="d-flex justify-content-between"><span>.NET / C#</span><span>82%</span></div>
+          <div class="meter"><div class="fill" data-width="82%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="d-flex justify-content-between"><span>Flutter / Firebase</span><span>80%</span></div>
+          <div class="meter"><div class="fill" data-width="80%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="d-flex justify-content-between"><span>SQL / MongoDB</span><span>78%</span></div>
+          <div class="meter"><div class="fill" data-width="78%"></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider my-5"></div>
+
+  <!-- CONTACT -->
+  <section id="contact" class="container py-5">
+    <p class="section-title mb-2">/contact</p>
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+        <div class="code-card p-3">
+          <form onsubmit="event.preventDefault(); alert('Thanks! I\'ll get back to you.');">
+            <div class="row g-3">
+              <div class="col-md-6"><input class="form-control" placeholder="Your name" required></div>
+              <div class="col-md-6"><input type="email" class="form-control" placeholder="Email" required></div>
+              <div class="col-12"><input class="form-control" placeholder="Subject" required></div>
+              <div class="col-12"><textarea class="form-control" rows="5" placeholder="Message" required></textarea></div>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <small class="text-muted">*Your info is safe with me.</small>
+              <button class="btn btn-neon"><i class="bi bi-send me-1"></i>Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BACK TO TOP -->
+  <button id="toTop" class="btn btn-neon"><i class="bi bi-arrow-up-short"></i></button>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-typescript.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-tsx.min.js"></script>
+  <script>
+    // Matrix rain animation
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    function size(){canvas.width = window.innerWidth; canvas.height = document.getElementById('hero').offsetHeight}
+    size(); window.addEventListener('resize', size);
+    const letters = '01ABCDEFGHIJKLMNOPQRSTUVWXYZ$#{}[]&*+-=&lt;&gt;';
+    const fontSize = 16; 
+    let columns = Math.floor(window.innerWidth / fontSize);
+    let drops = Array(columns).fill(1);
+    function draw(){
+      ctx.fillStyle = 'rgba(5,6,10,0.15)';
+      ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = '#00ffb3';
+      ctx.shadowColor = '#00ffb3';
+      ctx.shadowBlur = 8;
+      ctx.font = fontSize + 'px Fira Code';
+      for(let i=0;i<drops.length;i++){
+        const text = letters.charAt(Math.floor(Math.random()*letters.length));
+        ctx.fillText(text, i*fontSize, drops[i]*fontSize);
+        if(drops[i]*fontSize > canvas.height && Math.random() > 0.975){drops[i]=0}
+        drops[i]++
+      }
+    }
+    setInterval(draw, 35);
+
+    // Terminal typing effect
+    const terminal = document.getElementById('terminal');
+    const lines = [
+      'ridwan@dev:~$ whoami',
+      '➜  Full‑Stack Developer — JavaScript | PHP | .NET | Flutter',
+      '',
+      'ridwan@dev:~$ echo "Building clean UI, robust APIs & delightful UX"',
+      'Building clean UI, robust APIs & delightful UX',
+      '',
+      'ridwan@dev:~$ ls ./projects',
+      'opinions-platform  Smart Shop Management System  nopcommerce-suite',
+      '',
+      'ridwan@dev:~$ _'
+    ];
+    let i=0; let j=0; let current='';
+    function type(){
+      if(i < lines.length){
+        if(j < lines[i].length){
+          current += lines[i][j++];
+          terminal.innerHTML = current + '<span class="caret"></span>';
+        } else {
+          current += '\n'; i++; j=0;
+        }
+        setTimeout(type, 18 + Math.random()*40);
+      } else {
+        terminal.innerHTML = current + '<span class="caret"></span>';
+      }
+    }
+    type();
+
+  
+    const fills = document.querySelectorAll('.fill');
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.style.width = e.target.dataset.width; } });
+    }, {threshold:.4});
+    fills.forEach(f=>io.observe(f));
+
+    
+    const toTop = document.getElementById('toTop');
+    window.addEventListener('scroll', ()=>{
+      const show = window.scrollY > 400; toTop.style.display = show ? 'inline-flex' : 'none';
+    });
+    toTop.addEventListener('click', ()=> window.scrollTo({top:0, behavior:'smooth'}));
+
+  
+    const ids = ['hero','about','projects','skills','contact'];
+    function go(dir){
+      const y = window.scrollY; const pos = ids.map(id=>({id, top: document.getElementById(id)?.getBoundingClientRect().top + y}));
+      const curr = pos.reduce((a,b)=> Math.abs(b.top - y) < Math.abs(a.top - y) ? b : a );
+      let idx = ids.indexOf(curr.id);
+      idx = Math.min(ids.length-1, Math.max(0, idx + dir));
+      document.getElementById(ids[idx]).scrollIntoView({behavior:'smooth'});
+    }
+    window.addEventListener('keydown', (e)=>{
+      if(['ArrowDown','KeyS'].includes(e.code)) go(1);
+      if(['ArrowUp','KeyW'].includes(e.code)) go(-1);
+    });
+  </script>
+</body>
+</html>
