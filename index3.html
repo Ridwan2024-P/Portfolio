@@ -345,22 +345,25 @@
 
   <!-- Splide JS -->
   <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Splide('#project-slider', {
+      type        : 'loop',
+      perPage     : 3,
+      gap         : '1rem',
+      autoplay    : true,        
+      interval    : 3000,        
+      speed       : 800,         
+      pauseOnHover: false,       
+      pauseOnFocus: false,       
+      breakpoints : {
+        768 : { perPage: 1 },
+        1024: { perPage: 2 }
+      }
+    }).mount();
+  });
+</script>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      new Splide('#project-slider', {
-        type   : 'loop',
-        perPage: 3,
-        gap    : '1rem',
-        autoplay: true,
-        pauseOnHover: true,
-        breakpoints: {
-          768: { perPage: 1 },
-          1024: { perPage: 2 }
-        }
-      }).mount();
-    });
-  </script>
    <style>
     body {
       background: #0d0d0d;
