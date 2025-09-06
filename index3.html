@@ -95,6 +95,34 @@
 
     /* Divider */
     .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(0,255,209,.6), transparent); box-shadow:var(--glow)}
+  .navbar-brand {
+  font-size: 1.5rem; /* Default (desktop) */
+}
+
+@media (max-width: 576px) {  
+  .navbar-brand {
+    font-size: 1rem;  
+  }
+    #hero .hero-inner {
+    padding: 2rem 1rem; 
+    text-align: center; 
+  }
+
+  #hero .hero-inner img {
+    width: 90px;
+    height: 90px;
+    border-width: 1.5px;
+  }
+
+  #hero .console {
+    font-size: 0.8rem; 
+  }
+
+  #hero .mt-4.d-flex.gap-2.justify-content-center a.btn {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem; 
+  }
+}
   </style>
 </head>
 <body>
@@ -200,7 +228,55 @@
       </div>
     </div>
   </section>
+<style>
+  /* General Code-Card Styles */
+.code-card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(11,15,23,.9), rgba(11,15,23,.6));
+  border: 1px solid rgba(255,255,255,.07);
+}
 
+/* Pre/code responsive */
+.code-card pre {
+  white-space: pre-wrap;    /* Line wrap করবে */
+  word-break: break-word;   /* খুব লম্বা words wrap হবে */
+  overflow-x: auto;         /* ফোনে scroll হবে যদি প্রয়োজন হয় */
+  font-size: 0.9rem;        /* font size সামঞ্জস্য করা */
+  margin: 0;
+  padding: 0.5rem;
+}
+
+
+/* Tabs */
+.tab {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.12);
+}
+.tab.active {
+  background: rgba(0,255,209,.12);
+  border-color: rgba(0,255,209,.5);
+  color: var(--neon);
+}
+
+/* Mobile adjustments */
+@media (max-width: 576px) {
+  #education, #about, #skills, #contact {
+    padding: 2rem 1rem;       /* container padding phone view */
+  }
+  .code-card pre {
+    font-size: 0.75rem;       /* কোড ছোট করা ফোনে */
+  }
+  .tab {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+  }
+}
+
+</style>
   <div class="divider my-5"></div>
  <section class="container py-5" id="projects">
     <p class="section-title mb-4">/projects</p>
@@ -365,6 +441,10 @@
 </script>
 
    <style>
+    .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
     body {
       background: #0d0d0d;
       color: #fff;
@@ -403,6 +483,7 @@
       background: #00ffff;
       color: #000;
       font-weight: bold;
+      
     }
   </style>
 
