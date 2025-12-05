@@ -425,7 +425,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     new Splide('#project-slider', {
       type        : 'loop',
-      perPage     : 3,
+      perPage     : 1,
       gap         : '1rem',
       autoplay    : true,        
       interval    : 3000,        
@@ -433,7 +433,7 @@
       pauseOnHover: false,       
       pauseOnFocus: false,       
       breakpoints : {
-        768 : { perPage: 1 },
+        768 : { perPage: 2 },
         1024: { perPage: 2 }
       }
     }).mount();
