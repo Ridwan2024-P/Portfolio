@@ -25,7 +25,7 @@ It highlights my work in:
 
 ## 🌐 Live Demo
 
-👉 https://cerulean-mermaid-55723f.netlify.app/portfolio-main/#about)
+👉 https://cerulean-mermaid-55723f.netlify.app/portfolio-main/#hero
 
 
 
