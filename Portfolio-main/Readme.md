@@ -21,7 +21,7 @@ It highlights my work in:
 
 ---
 ## 🖼️ Portfolio Preview Images
-![alt text](Portfolio-main/image.png)
+
 
 ## 🌐 Live Demo
 
