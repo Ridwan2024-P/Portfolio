@@ -20,110 +20,8 @@
 
   <!-- Splide CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
-  <style>
-    :root{
-      --bg:#05060a;
-      --panel:#0b0f17;
-      --neon:#00ffd1;
-      --neon2:#6a5cff;
-      --accent:#00ff6a;
-      --text:#d8e1ff;
-      --muted:#91a0c3;        
-      --danger:#ff4d6d;
-      --glow:0 0 12px rgba(0,255,209,.55), 0 0 32px rgba(0,255,209,.25);
-      --glow2:0 0 14px rgba(106,92,255,.6), 0 0 30px rgba(106,92,255,.25);
-    }
-    html,body{
-      height:100%;
-      background: radial-gradient(1200px 800px at 80% -10%, rgba(106,92,255,.15), transparent),
-                  radial-gradient(900px 700px at -10% 120%, rgba(0,255,209,.12), transparent),
-                  var(--bg);
-      color:var(--text);
-      font-family:'Fira Code', monospace;
-    }
-    a{color:var(--neon)}
-    .navbar{background:rgba(5,6,10,.75)!important; backdrop-filter:saturate(130%) blur(10px); border-bottom:1px solid rgba(255,255,255,.06)}
-    .btn-neon{border:1px solid var(--neon); color:var(--neon); box-shadow: var(--glow); text-shadow:0 0 6px rgba(0,255,209,.75);}
-    .btn-neon:hover{background:var(--neon); color:#051014}
-    .btn-ghost{border:1px dashed rgba(255,255,255,.25); color:var(--text)}
-
-    /* HERO */
-    #hero{position:relative; min-height:100vh; display:grid; place-items:center; overflow:hidden}
-    #matrix{position:absolute; inset:0; z-index:0;}
-    .hero-inner{position:relative; z-index:1; text-align:center}
-    .console{max-width:900px; margin-inline:auto; text-align:left; background:linear-gradient(180deg, rgba(11,15,23,.8), rgba(11,15,23,.55)); border:1px solid rgba(255,255,255,.08); border-radius:14px; box-shadow:var(--glow2);}
-    .console .titlebar{display:flex; gap:8px; align-items:center; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.06)}
-    .bubble{width:10px; height:10px; border-radius:50%}
-    .bubble.red{background:#ff5f57}.bubble.yellow{background:#ffbd2e}.bubble.green{background:#28c840}
-    .console pre{padding:18px; margin:0; color:#b7ffcc; white-space:pre-wrap}
-    .caret{display:inline-block; width:9px; height:1.2em; background:#b7ffcc; box-shadow:0 0 8px #00ff6a; animation:blink 1s steps(1) infinite}
-    @keyframes blink{50%{opacity:0}}
-
-    /* SECTION WRAPPERS */
-    section{scroll-margin-top:80px}
-    .section-title{text-transform:uppercase; letter-spacing:.18em; color:var(--muted)}
-
-    /* CODE-EDITOR CARDS */
-    .code-card{background:linear-gradient(180deg, rgba(11,15,23,.9), rgba(11,15,23,.6)); border:1px solid rgba(255,255,255,.07); border-radius:16px; overflow:hidden}
-    .code-card .bar{display:flex; align-items:center; gap:10px; padding:10px 14px; border-bottom:1px solid rgba(255,255,255,.06); background:linear-gradient(90deg, rgba(106,92,255,.15), rgba(0,255,209,.08));}
-    .tab{padding:.25rem .75rem; border-radius:999px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12)}
-    .tab.active{background:rgba(0,255,209,.12); border-color:rgba(0,255,209,.5); color:var(--neon)}
-
-    /* PROJECT GRID */
-    .project{position:relative; border-radius:16px; overflow:hidden; border:1px solid rgba(255,255,255,.06); background:#0b0f17}
-    .project img{height:210px; width:100%; object-fit:cover; filter:saturate(1.05) contrast(1.05)}
-    .project .overlay{position:absolute; inset:0; display:grid; place-items:center; background:linear-gradient(180deg, rgba(0,0,0,.0), rgba(0,0,0,.65)); opacity:0; transition:.3s}
-    .project:hover .overlay{opacity:1}
-    .badge-neon{background:rgba(0,255,209,.15); border:1px solid rgba(0,255,209,.45); color:var(--neon)}
-
-    /* SKILLS */
-    .skill{margin-bottom:18px}
-    .meter{height:10px; background:rgba(255,255,255,.08); border-radius:999px; overflow:hidden;}
-    .fill{height:100%; width:0; background:linear-gradient(90deg, var(--neon), var(--neon2)); box-shadow:var(--glow); transition:width 1.5s ease}
-
-    /* CONTACT */
-    .form-control, .form-select{background:#0b0f17; border:1px solid rgba(255,255,255,.08); color:var(--text)}
-    .form-control:focus{border-color:var(--neon); box-shadow:0 0 0 .2rem rgba(0,255,209,.15)}
-
-    /* Floating socials */
-    .socials{position:fixed; left:12px; top:40%; display:flex; flex-direction:column; gap:10px; z-index:10}
-    .socials a{display:grid; place-items:center; width:40px; height:40px; border-radius:50%; border:1px solid rgba(255,255,255,.14); color:var(--text); background:rgba(11,15,23,.7)}
-    .socials a:hover{border-color:var(--neon); color:var(--neon); box-shadow:var(--glow)}
-
-    /* Back to top */
-    #toTop{position:fixed; right:16px; bottom:16px; display:none; z-index:20}
-
-    /* Divider */
-    .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(0,255,209,.6), transparent); box-shadow:var(--glow)}
-  .navbar-brand {
-  font-size: 1.5rem; /* Default (desktop) */
-}
-
-@media (max-width: 576px) {  
-  .navbar-brand {
-    font-size: 1rem;  
-  }
-    #hero .hero-inner {
-    padding: 2rem 1rem; 
-    text-align: center; 
-  }
-
-  #hero .hero-inner img {
-    width: 90px;
-    height: 90px;
-    border-width: 1.5px;
-  }
-
-  #hero .console {
-    font-size: 0.8rem; 
-  }
-
-  #hero .mt-4.d-flex.gap-2.justify-content-center a.btn {
-    font-size: 0.85rem;
-    padding: 0.4rem 0.8rem; 
-  }
-}
-  </style>
+  <!-- CSS -->
+   <link rel="stylesheet" href="CSS/Style.css">
 </head>
 <body>
   <!-- NAV -->
@@ -157,7 +55,7 @@
   <section id="hero" class="container-fluid">
     <canvas id="matrix"></canvas>
     <div class="hero-inner container py-5">
-        <img src="rid.png" alt="Ridwan" class="rounded-circle mb-3" style="width:320px; height:320px; border:2px solid var(--neon); box-shadow:var(--glow);">
+        <img src="Images/rid.png" alt="Ridwan" class="rounded-circle mb-3" style="width:320px; height:320px; border:2px solid var(--neon); box-shadow:var(--glow);">
       <div class="console">
         
         <div class="titlebar">
@@ -171,7 +69,7 @@
      <div class="mt-4 d-flex gap-2 justify-content-center">
   <a href="#projects" class="btn btn-neon btn-lg"><i class="bi bi-eye me-1"></i> View Projects</a>
   <a href="#contact" class="btn btn-ghost btn-lg"><i class="bi bi-send me-1"></i> Contact</a>
-  <a href="CV(Ahsan,Md Ridwan BIn).pdf" download class="btn btn-neon btn-lg"><i class="bi bi-download me-1"></i> Download CV</a>
+  <a href="Document/CV(Ahsan,Md Ridwan BIn).pdf" download class="btn btn-neon btn-lg"><i class="bi bi-download me-1"></i> Download CV</a>
 </div>
 
     </div>
@@ -238,55 +136,7 @@
       </div>
     </div>
   </section>
-<style>
-  /* General Code-Card Styles */
-.code-card {
-  border-radius: 16px;
-  overflow: hidden;
-  background: linear-gradient(180deg, rgba(11,15,23,.9), rgba(11,15,23,.6));
-  border: 1px solid rgba(255,255,255,.07);
-}
 
-
-.code-card pre {
-  white-space: pre-wrap;    
-  word-break: break-word;   
-  overflow-x: auto;         
-  font-size: 0.9rem;      
-  margin: 0;
-  padding: 0.5rem;
-}
-
-
-/* Tabs */
-.tab {
-  font-size: 0.85rem;
-  padding: 0.25rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.12);
-}
-.tab.active {
-  background: rgba(0,255,209,.12);
-  border-color: rgba(0,255,209,.5);
-  color: var(--neon);
-}
-
-/* Mobile adjustments */
-@media (max-width: 576px) {
-  #education, #about, #skills, #contact {
-    padding: 2rem 1rem;       /* container padding phone view */
-  }
-  .code-card pre {
-    font-size: 0.75rem;       /* কোড ছোট করা ফোনে */
-  }
-  .tab {
-    font-size: 0.7rem;
-    padding: 0.2rem 0.5rem;
-  }
-}
-
-</style>
   <div class="divider my-5"></div>
  <section class="container py-5" id="projects">
     <p class="section-title mb-4">/Frontend projects</p>
@@ -295,13 +145,9 @@
     <div class="splide" id="project-slider">
       <div class="splide__track">
         <ul class="splide__list">
-
-
           <li class="splide__slide">
-            <article class="project">
-              
-              <img src="Astha.png" alt="Hospital"/>
-             
+            <article class="project">  
+              <img src="Images/Astha.png" alt="Hospital"/>
               <div class="overlay text-center p-3">
                 <h5 class="mb-2">Hospital Website</h5>
                 <span class="badge badge-neon me-1">HTML</span>
@@ -316,11 +162,9 @@
               </div>
             </article>
           </li>
-     
-          <!-- Project 1 -->
           <li class="splide__slide">
             <article class="project">
-              <img src="Screenshot 2025-09-05 210035.png" alt="E-Voting"/>
+              <img src="Images/Screenshot 2025-09-05 210035.png" alt="E-Voting"/>
               <div class="overlay text-center p-3">
                 <h5 class="mb-2">Opinion Platform (PHP + MySQL)</h5>
                 <span class="badge badge-neon me-1">Bootstrap 5</span>
@@ -331,7 +175,7 @@
           </li>
           <li class="splide__slide">
             <article class="project">
-              <img src="Screenshot 2025-09-05 000703.png" alt="Convention Center"/>
+              <img src="Images/Screenshot 2025-09-05 000703.png" alt="Convention Center"/>
               <div class="overlay text-center p-3">
                 <h5 class="mb-2">Abacus Convention Center</h5>
                 <span class="badge badge-neon me-1">HTML</span>
@@ -342,7 +186,7 @@
           </li>           
           <li class="splide__slide">
             <article class="project">
-              <img src="Bono.png" alt="Bono Image"/>
+              <img src="Images/Bono.png" alt="Bono Image"/>
               <div class="overlay text-center p-3">
                 <h5 class="mb-2">Bono Landing From Website</h5>
                 <span class="badge badge-neon me-1">HTML</span>
@@ -351,8 +195,7 @@
               <a href="https://cheery-cocada-d36374.netlify.app/bono-landing-form-website/" target="_blank" style="color:#000;  text-decoration:none;">
                 Live Demo
               </a>
-              </span>
-                
+              </span>            
               </div>
             </article>
           </li>  
@@ -360,226 +203,128 @@
       </div>
     </div>
 
- <div class="section-title">
-     <p class="section-title mb-4 mt-5">/Backend Projects</p>
-  </div>
+             <div class="section-title">
+                  <p class="section-title mb-4 mt-5">/Backend Projects</p>
+                </div>
 
-  <div class="row g-4">
+                <div class="row g-4">
 
-    <!-- Project 1 -->
-    <div class="col-md-6">
-      <div class="project-card">
+                  <!-- Project 1 -->
+                  <div class="col-md-6">
+                    <div class="project-card">
 
-        <div class="project-title">
-          <i class="bi bi-cart-check icon"></i>
-          Ecommerce-Rest-Api-Springboot
-        </div>
+                      <div class="project-title">
+                        <i class="bi bi-cart-check icon"></i>
+                        Ecommerce-Rest-Api-Springboot
+                      </div>
 
-        <div class="project-text">
-         Developed a Java Spring Boot e-commerce backend system with JWT authentication, order, and payment management.
-        </div>
+                      <div class="project-text">
+                      Developed a Java Spring Boot e-commerce backend system with JWT authentication, order, and payment management.
+                      </div>
 
-        <div class="tech">
-          <span class="badge-tech">Java</span>
-          <span class="badge-tech">Spring Boot</span>
-          <span class="badge-tech">JWT</span>
-          <span class="badge-tech">MySQL</span>
-        </div>
+                      <div class="tech">
+                        <span class="badge-tech">Java</span>
+                        <span class="badge-tech">Spring Boot</span>
+                        <span class="badge-tech">JWT</span>
+                        <span class="badge-tech">MySQL</span>
+                      </div>
 
-        <a href="https://github.com/Ridwan2024-P/Ecommerce-Rest-Api-Springboot"
-           class="btn btn-github" target="_blank">
-          <i class="bi bi-github"></i> GitHub
-        </a>
+                      <a href="https://github.com/Ridwan2024-P/Ecommerce-Rest-Api-Springboot"
+                        class="btn btn-github" target="_blank">
+                        <i class="bi bi-github"></i> GitHub
+                      </a>
 
-      </div>
-    </div>
+                    </div>
+                  </div>
 
-    <!-- Project 2 -->
-    <div class="col-md-6">
-      <div class="project-card">
+                  <!-- Project 2 -->
+                  <div class="col-md-6">
+                    <div class="project-card">
 
-        <div class="project-title">
-          <i class="bi bi-lightning-charge icon"></i>
-          Advanced Web Technology Project
-        </div>
+                      <div class="project-title">
+                        <i class="bi bi-lightning-charge icon"></i>
+                        Advanced Web Technology Project
+                      </div>
 
-        <div class="project-text">
-          Full-stack modern app using React, Next.js, TypeScript with real-time messaging
-          and email notification system.
-        </div>
+                      <div class="project-text">
+                        Full-stack modern app using React, Next.js, TypeScript with real-time messaging
+                        and email notification system.
+                      </div>
 
-        <div class="tech">
-          <span class="badge-tech">Node.js</span>
-          <span class="badge-tech">React</span>
-          <span class="badge-tech">Next.js</span>
-          <span class="badge-tech">Pusher</span>
-        </div>
+                      <div class="tech">
+                        <span class="badge-tech">Node.js</span>
+                        <span class="badge-tech">React</span>
+                        <span class="badge-tech">Next.js</span>
+                        <span class="badge-tech">Pusher</span>
+                      </div>
 
-        <a href="https://github.com/Ridwan2024-P/ADVANCED-PROGRAMMING-IN-WEBTECHNOLOGY-PROJECT"
-           class="btn btn-github" target="_blank">
-          <i class="bi bi-github"></i> GitHub
-        </a>
+                      <a href="https://github.com/Ridwan2024-P/ADVANCED-PROGRAMMING-IN-WEBTECHNOLOGY-PROJECT"
+                        class="btn btn-github" target="_blank">
+                        <i class="bi bi-github"></i> GitHub
+                      </a>
 
-      </div>
-    </div>
+                    </div>
+                  </div>
 
-    <!-- Project 3 -->
-    <div class="col-md-6">
-      <div class="project-card">
+                  <!-- Project 3 -->
+                  <div class="col-md-6">
+                    <div class="project-card">
 
-        <div class="project-title">
-          <i class="bi bi-journal-code icon"></i>
-         Online-Book-Management-Recommendation-System-Backend-API
-        </div>
+                      <div class="project-title">
+                        <i class="bi bi-journal-code icon"></i>
+                      Online-Book-Management-Recommendation-System-Backend-API
+                      </div>
 
-        <div class="project-text">
-          A RESTful Web API-based Book Management and Recommendation System built with N-Tier architecture, database integration, and advanced recommendation features.
-        </div>
+                      <div class="project-text">
+                        A RESTful Web API-based Book Management and Recommendation System built with N-Tier architecture, database integration, and advanced recommendation features.
+                      </div>
 
-        <div class="tech">
-          <span class="badge-tech">C#</span>
-          <span class="badge-tech">.NET</span>
-          <span class="badge-tech">Web API</span>
-          <span class="badge-tech">SQL</span>
-        </div>
+                      <div class="tech">
+                        <span class="badge-tech">C#</span>
+                        <span class="badge-tech">.NET</span>
+                        <span class="badge-tech">Web API</span>
+                        <span class="badge-tech">SQL</span>
+                      </div>
 
-        <a href="https://github.com/Ridwan2024-P/Online-Book-Management-Recommendation-System-Backend-API"
-           class="btn btn-github" target="_blank">
-          <i class="bi bi-github"></i> GitHub
-        </a>
+                      <a href="https://github.com/Ridwan2024-P/Online-Book-Management-Recommendation-System-Backend-API"
+                        class="btn btn-github" target="_blank">
+                        <i class="bi bi-github"></i> GitHub
+                      </a>
 
-      </div>
-    </div>
+                    </div>
+                  </div>
 
-    <!-- Project 4 -->
-    <div class="col-md-6">
-      <div class="project-card">
+                  <!-- Project 4 -->
+                  <div class="col-md-6">
+                    <div class="project-card">
 
-        <div class="project-title">
-          <i class="bi bi-people icon"></i>
-          Web-Based Platform for Office of Sports (AIUB) 
-        </div>
+                      <div class="project-title">
+                        <i class="bi bi-people icon"></i>
+                        Web-Based Platform for Office of Sports (AIUB) 
+                      </div>
 
-        <div class="project-text">
-          PHP based web platform for managing sports activities with email notification system.
-        </div>
+                      <div class="project-text">
+                        PHP based web platform for managing sports activities with email notification system.
+                      </div>
 
-        <div class="tech">
-          <span class="badge-tech">PHP</span>
-          <span class="badge-tech">MySQL</span>
-          <span class="badge-tech">Bootstrap</span>
-          <span class="badge-tech">PHPMailer</span>
-        </div>
+                      <div class="tech">
+                        <span class="badge-tech">PHP</span>
+                        <span class="badge-tech">MySQL</span>
+                        <span class="badge-tech">Bootstrap</span>
+                        <span class="badge-tech">PHPMailer</span>
+                      </div>
 
-        <a href="https://github.com/Ridwan2024-P/Web-Based-Platform-for-Office-of-Sports-AIUB"
-           class="btn btn-github" target="_blank">
-          <i class="bi bi-github"></i> GitHub
-        </a>
+                      <a href="https://github.com/Ridwan2024-P/Web-Based-Platform-for-Office-of-Sports-AIUB"
+                        class="btn btn-github" target="_blank">
+                        <i class="bi bi-github"></i> GitHub
+                      </a>
 
-      </div>
-    </div>
+                    </div>
+                  </div>
 
-  </div>
+                </div>
 
 </section>
-<style>
-  
-.section-title{
-  text-align:center;
-  font-size:32px;
-  font-weight:800;
-  margin-bottom:50px;
-  color:#38bdf8;
-  letter-spacing:1px;
-}
-.project-card{
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
-  backdrop-filter: blur(12px);
-  border-radius:18px;
-  padding:25px;
-  transition:0.4s ease;
-  height:100%;
-  position:relative;
-  overflow:hidden;
-}
-
-.project-card::before{
-  content:"";
-  position:absolute;
-  top:-50%;
-  left:-50%;
-  width:200%;
-  height:200%;
-  background: radial-gradient(circle, rgba(56,189,248,0.15), transparent 60%);
-  transform: rotate(25deg);
-  transition:0.5s;
-}
-
-.project-card:hover::before{
-  transform: rotate(0deg);
-}
-
-.project-card:hover{
-  transform: translateY(-10px);
-  border-color:#38bdf8;
-  box-shadow: 0 20px 50px rgba(56,189,248,0.25);
-}
-
-/* Title */
-.project-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:10px;
-}
-
-/* Text */
-.project-text{
-  font-size:14px;
-  color:#cbd5e1;
-  margin-bottom:15px;
-}
-
-/* Tech */
-.tech{
-  font-size:12px;
-  color:#94a3b8;
-  margin-bottom:15px;
-}
-
-/* Badge style */
-.badge-tech{
-  background: rgba(56,189,248,0.15);
-  border: 1px solid rgba(56,189,248,0.3);
-  color:#38bdf8;
-  padding:5px 10px;
-  border-radius:10px;
-  font-size:11px;
-  margin-right:5px;
-}
-
-/* Button */
-.btn-github{
-  background: linear-gradient(135deg,#2563eb,#38bdf8);
-  border:none;
-  font-size:13px;
-  padding:8px 14px;
-  border-radius:10px;
-  transition:0.3s;
-}
-
-.btn-github:hover{
-  transform:scale(1.05);
-  box-shadow:0 10px 25px rgba(56,189,248,0.3);
-}
-
-/* Icon */
-.icon{
-  color:#38bdf8;
-  margin-right:6px;
-}
-</style>
-
 
   </section>
 
@@ -589,7 +334,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     new Splide('#project-slider', {
       type        : 'loop',
-      perPage     : 4,
+      perPage     : 3,
       gap         : '1rem',
       autoplay    : true,        
       interval    : 3000,        
@@ -597,59 +342,13 @@
       pauseOnHover: false,       
       pauseOnFocus: false,       
       breakpoints : {
-        768 : { perPage: 2 },
-        1024: { perPage: 2 }
+        768 : { perPage: 1 },
+        1024: { perPage: 1 }
       }
     }).mount();
   });
 </script>
 
-   <style>
-    .navbar-toggler-icon {
-  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 1%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-    body {
-      background: #0d0d0d;
-      color: #fff;
-    }
-    .section-title {
-      font-size: 24px;
-      color: #0ff;
-      font-weight: bold;
-    }
-    .splide__slide img {
-      width: 100%;
-      height: 420px;
-      object-fit: cover;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      filter: brightness(70%);
-    }
-    .overlay {
-      background: rgba(0, 0, 0, 0.7);
-      color: #fff;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      opacity: 0;
-      transition: 0.3s;
-      border-radius: 0 0 10px 10px;
-    }
-    .project {
-      position: relative;
-    }
-    .project:hover .overlay {
-      opacity: 1;
-    }
-    .badge-neon {
-      background: #00ffff;
-      color: #000;
-      font-weight: bold;
-      
-    }
-  </style>
 
     <!-- SKILLS -->
   <section id="skills" class="container py-5">
